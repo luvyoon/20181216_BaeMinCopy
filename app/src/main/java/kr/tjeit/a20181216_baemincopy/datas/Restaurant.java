@@ -6,11 +6,21 @@ public class Restaurant {
     private String name;
     private  String address;
     private String openTime;
+    private  String logoUrl;
 
-    public Restaurant(String name, String address, String openTime) {
+    public Restaurant(String name, String address, String openTime, String logoUrl) {
         this.name = name;
         this.address = address;
         this.openTime = openTime;
+        this.logoUrl = logoUrl;
+    }
+
+    public String getLogoUrl() {
+        return logoUrl;
+    }
+
+    public void setLogoUrl(String logoUrl) {
+        this.logoUrl = logoUrl;
     }
 
     public String getName() {
