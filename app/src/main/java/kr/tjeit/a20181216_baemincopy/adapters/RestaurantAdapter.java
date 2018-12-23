@@ -17,7 +17,7 @@ public class RestaurantAdapter extends ArrayAdapter<Restaurant> {
 
     Context mContext;
     List<Restaurant> mList;
-    LayoutInflater inf;
+    LayoutInflater inf; //xml =>JAVA 에서 활용 가능하게 그려주는 역할 . 인플레이팅
 
     public RestaurantAdapter(Context mContext, List<Restaurant> mList) {
 
@@ -49,6 +49,9 @@ public class RestaurantAdapter extends ArrayAdapter<Restaurant> {
         nameTxt.setText(data.getName());
         addressTxt.setText(data.getAddress());
         openTimeTxt.setText(data.getOpenTime());
+
+//        버튼이 달려있다면 findViewById 로 연결해서  setonClick 작성
+
 
         return row;
 
