@@ -1,14 +1,21 @@
 package kr.tjeit.a20181216_baemincopy.adapters;
 
+import android.Manifest;
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.gun0912.tedpermission.PermissionListener;
+import com.gun0912.tedpermission.TedPermission;
 
 import java.util.List;
 
@@ -47,6 +54,7 @@ public class RestaurantAdapter extends ArrayAdapter<Restaurant> {
         TextView addressTxt = row.findViewById(R.id.addressTxt);
         TextView openTimeTxt = row.findViewById(R.id.openTimeTxt);
         ImageView logoImgView = row.findViewById(R.id.logoImgView);
+        Button callBtn = row.findViewById(R.id.callBtn);
 
         Restaurant data = mList.get(position);
 
@@ -57,6 +65,39 @@ public class RestaurantAdapter extends ArrayAdapter<Restaurant> {
 
 //        버튼이 달려있다면 findViewById 로 연결해서  setonClick 작성
 
+//        콜버튼 눌리면 할일!
+
+        callBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+//                전화를 바로걸기
+
+                PermissionListener permissionListener = new PermissionListener() {
+                    @Override
+                    public void onPermissionGranted() {
+
+//                      전화 승인, 전화 걸어줌
+                        Uri uri = Uri.parse("tel:01012345678");
+                        Intent intent = new Intent(Intent.ACTION_CALL,uri);
+                        mContext.startActivity(intent);
+                    }
+
+                    @Override
+                    public void onPermissionDenied(List<String> deniedPermissions) {
+
+                        Toast.makeText(mContext, "전화 승인이 필요합니다", Toast.LENGTH_SHORT).show();
+
+                    }
+                };
+
+                TedPermission.with(mContext).setPermissionListener(permissionListener)
+                        .setPermissions(Manifest.permission.CALL_PHONE).check();
+
+
+
+            }
+        });
 
         return row;
 
